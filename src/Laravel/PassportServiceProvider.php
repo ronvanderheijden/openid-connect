@@ -33,8 +33,8 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
         parent::boot();
 
         $this->publishes([
-            __DIR__ . '/config/openidconnect.php' => $this->app->configPath('openidconnect.php'),
-        ], ['openidconnect', 'openidconnect-config']);
+            __DIR__ . '/config/openid.php' => $this->app->configPath('openid.php'),
+        ], ['openid', 'openid-config']);
 
         Passport\Passport::tokensCan(config('openid.passport.tokens_can'));
     }
