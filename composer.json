@@ -2,7 +2,6 @@
     "name": "ronvanderheijden/openid-connect",
     "type": "library",
     "description": "This package adds the OpenID Connect identity layer to the PHP League's OAuth2 Server. With Laravel Passport support.",
-    "version": "0.1.0",
     "license": "MIT",
     "homepage": "https://github.com/ronvanderheijden/openid-connect",
     "authors": [
