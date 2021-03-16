@@ -121,7 +121,7 @@ class IdentityEntity implements IdentityEntityInterface
 
 ### Publishing the config
 ```sh
-php artisan vendor:publish --tag=openidconnect
+php artisan vendor:publish --tag=openid
 ```
 
 In this config, you can change the default scopes, add custom claim sets and change the repositories.
