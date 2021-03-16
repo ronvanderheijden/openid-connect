@@ -57,7 +57,7 @@ $server = new \League\OAuth2\Server\AuthorizationServer(
     $clientRepository,
     $accessTokenRepository,
     $scopeRepository,
-    'file://' . $privateKeyPath,
+    $privateKeyPath,
     $encryptionKey,
     // [OpenIDConnect] Add the response_type
     $responseType
