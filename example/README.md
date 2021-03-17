@@ -7,7 +7,7 @@ I recommand to [read this](https://oauth2.thephpleague.com/authorization-server/
 ## Setup
 ```sh
 # start the service application
-php -S localhost:8000 -t example > phpd.log 2>&1 &
+php -S localhost:8000 -t example
 
 # get the tokens using the client
 php example/get_tokens
