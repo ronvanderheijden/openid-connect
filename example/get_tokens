@@ -77,14 +77,14 @@ $tokensUrl = 'http://localhost:8000/tokens';
 $redirectUrl = 'http://example.com/callback';
 
 /**
- * Your client ID, given by the Auth Provider.
+ * The client ID, given by the Auth Provider.
  */
 $clientId = '1';
 
 /**
  * The scopes you want to collect.
  * Add `openid` to get an id_token.
- * Provider more scopes to receive additional claims in the id_token.
+ * Provide more scopes to receive additional claims in the `id_token`.
  */
 $scopes = 'openid profile email';
 
@@ -95,7 +95,7 @@ $scopes = 'openid profile email';
 $state = $crawler->randomString(40);
 
 /**
- * A verifier string which will be used to hash a code_challenge.
+ * A verifier string which will be used to create a code_challenge.
  */
 $codeVerifier = $crawler->codeVerifier();
 
@@ -141,6 +141,9 @@ if ($state !== $receivedState) {
     throw new Exception('States do not match!');
 }
 
+/**
+ * Now we can post the $_GET['code'] to request the tokens.
+ */
 $content = $crawler->httpRequest($tokensUrl, [
     'grant_type' => 'authorization_code',
     'client_id' => (string) $clientId,
@@ -158,15 +161,12 @@ if (!$content) {
     throw new Exception('No valid json received');
 }
 
-$dump = [
-    'token_type' => $content['token_type'],
-    'expires_in' => $content['expires_in'],
-    'refresh_token' => $content['refresh_token'],
-    'access_token' => $crawler->parseJwt($content['access_token']),
-];
+$dump = array_merge($content, [
+    'parsed_access_token' => $crawler->parseJwt($content['access_token']),
+]);
 
 if (isset($content['id_token'])) {
-    $dump['id_token'] = $crawler->parseJwt($content['id_token']);
+    $dump['parsed_id_token'] = $crawler->parseJwt($content['id_token']);
 }
 
 print_r($dump);
