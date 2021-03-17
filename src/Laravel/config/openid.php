@@ -39,6 +39,6 @@ return [
      */
     'repositories' => [
         'identity' => \OpenIDConnect\Repositories\IdentityRepository::class,
-        'scope'    => \OpenIDConnect\Repositories\ScopeRepository::class,
+        'scope' => \OpenIDConnect\Repositories\ScopeRepository::class,
     ],
 ];
