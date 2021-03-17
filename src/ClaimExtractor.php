@@ -11,8 +11,15 @@ use OpenIDConnect\Exceptions\ProtectedScopeException;
 
 class ClaimExtractor
 {
+    /**
+     * @var ClaimSetInterface[]
+     */
     protected array $claimSets;
 
+    /**
+     * @param ClaimSetInterface[] $claimSets
+     * @throws ProtectedScopeException
+     */
     public function __construct(ClaimSetInterface ...$claimSets)
     {
         $this
@@ -26,6 +33,9 @@ class ClaimExtractor
         }
     }
 
+    /**
+     * @return string[]
+     */
     public function getProtectedClaims(): array
     {
         return ['profile', 'email', 'address', 'phone'];
@@ -54,6 +64,11 @@ class ClaimExtractor
         return array_key_exists($scope, $this->claimSets);
     }
 
+    /**
+     * @param string[]|ScopeEntityInterface[] $scopes
+     * @param string[] $claims
+     * @return string[]
+     */
     public function extract(array $scopes, array $claims): array
     {
         $extracted = [];

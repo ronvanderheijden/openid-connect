@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-use OpenIDConnect\Repositories\IdentityRepository;
-use OpenIDConnect\Repositories\ScopeRepository;
-
 return [
     'passport' => [
+
+        /**
+         * Place your Passport and OpenID Connect scopes here.
+         * To receive an `id_token, you should at least provide the openid scope.
+         */
         'tokens_can' => [
             'openid' => 'Enable OpenID Connect',
             'profile' => 'Information about your profile',
@@ -17,14 +19,26 @@ return [
         ],
     ],
 
+    /**
+     * Place your custom claim sets here.
+     */
     'custom_claim_sets' => [
         // 'login' => [
         //     'last-login',
         // ],
+        // 'company' => [
+        //     'company_name',
+        //     'company_address',
+        //     'company_phone',
+        //     'company_email',
+        // ],
     ],
 
+    /**
+     * You can override the repositories below.
+     */
     'repositories' => [
-        'identity' => IdentityRepository::class,
-        'scope' => ScopeRepository::class,
+        'identity' => \OpenIDConnect\Repositories\IdentityRepository::class,
+        'scope' => \OpenIDConnect\Repositories\ScopeRepository::class,
     ],
 ];

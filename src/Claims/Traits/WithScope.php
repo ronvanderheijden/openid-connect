@@ -12,4 +12,9 @@ trait WithScope
     {
         return $this->scope;
     }
+
+    public function setScope(string $scope): void
+    {
+        $this->scope = $scope;
+    }
 }
