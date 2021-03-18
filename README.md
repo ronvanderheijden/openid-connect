@@ -1,8 +1,8 @@
 # OpenID Connect
 
-This package adds the OpenID Connect identity layer to the PHP League's OAuth2 Server. 
+OpenID Connect support to the PHP League's OAuth2 Server.
 
-**With [Laravel Passport](https://laravel.com/docs/8.x/passport) support!**
+**Compatible with [Laravel Passport](https://laravel.com/docs/8.x/passport)!**
 
 ## Requirements
 
@@ -64,9 +64,9 @@ For a complete implementation, visit [the OAuth2 Server example](https://github.
 
 ## Laravel Passport
 
-You can use this package with Laravel Passport.
+You can use this package with Laravel Passport in 2 simple steps.
 
-### add the service provider
+### 1.) add the service provider
 ```php
 # config/app.php
 'providers' => [
@@ -77,7 +77,7 @@ You can use this package with Laravel Passport.
 ],
 ```
 
-### create an entity
+### 2.) create an entity
 Create an entity class in `app/Entities/` named `IdentityEntity` or `UserEntity`. This entity is used to collect the claims.
 ```php
 # app/Entities/IdentityEntity.php
@@ -120,11 +120,10 @@ class IdentityEntity implements IdentityEntityInterface
 ```
 
 ### Publishing the config
+In case you want to change the default scopes, add custom claim sets or change the repositories, you can publish the openid config using:
 ```sh
 php artisan vendor:publish --tag=openid
 ```
-
-In this config, you can change the default scopes, add custom claim sets and change the repositories.
 
 ## Support
 Found a bug? Got a feature request?  [Create an issue](https://github.com/ronvanderheijden/openid-connect/issues).
