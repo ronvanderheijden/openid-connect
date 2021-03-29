@@ -41,4 +41,10 @@ return [
         'identity' => \OpenIDConnect\Repositories\IdentityRepository::class,
         'scope' => \OpenIDConnect\Repositories\ScopeRepository::class,
     ],
+
+    /**
+     * The signer to be used
+     * Can be Ecdsa, Hmac or RSA
+     */
+    'signer' => \Lcobucci\JWT\Signer\Hmac\Sha256::class,
 ];

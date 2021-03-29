@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace OpenIDConnect\Tests\Factories;
 
 use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Signer\Hmac\Sha256 as HmacSha256;
 use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Rsa\Sha256 as RsaSha256;
 
 class ConfigutationFactory
 {
     private function build(
-        ?Key $signerKey = null
+        ?Key $signerKey = null,
+        ?Signer $signer = null,
     ): Configuration {
         return Configuration::forSymmetricSigner(
-            new Sha256(),
+            $signer ?? new HmacSha256(),
             $signerKey ?? KeyFactory::signerKeyFromFile(),
         );
     }
@@ -27,5 +30,10 @@ class ConfigutationFactory
     public static function withSignerKey(Key $signerKey): Configuration
     {
         return (new static())->build($signerKey);
+    }
+
+    public static function withRsaSigner(): Configuration
+    {
+        return (new static())->build(null, new RsaSha256());
     }
 }
