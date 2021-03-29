@@ -10,7 +10,6 @@ use Laravel\Passport\Bridge\AccessTokenRepository;
 use Laravel\Passport\Bridge\ClientRepository;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Signer\Rsa\Sha256;
 use League\OAuth2\Server\AuthorizationServer;
 use OpenIDConnect\ClaimExtractor;
 use OpenIDConnect\Claims\ClaimSet;
@@ -53,7 +52,7 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
             app(config('openid.repositories.identity')),
             new ClaimExtractor(...$claimSets),
             Configuration::forSymmetricSigner(
-                new Sha256(),
+                app(config('openid.signer')),
                 InMemory::file($cryptKey->getKeyPath()),
             ),
         );
