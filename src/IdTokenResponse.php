@@ -25,7 +25,7 @@ class IdTokenResponse extends BearerTokenResponse
     public function __construct(
         IdentityRepositoryInterface $identityRepository,
         ClaimExtractor $claimExtractor,
-        Configuration $config,
+        Configuration $config
     ) {
         $this->identityRepository = $identityRepository;
         $this->claimExtractor = $claimExtractor;
@@ -34,7 +34,7 @@ class IdTokenResponse extends BearerTokenResponse
 
     protected function getBuilder(
         AccessTokenEntityInterface $accessToken,
-        IdentityEntityInterface $userEntity,
+        IdentityEntityInterface $userEntity
     ): Builder {
         $dateTimeImmutableObject = new DateTimeImmutable();
 
