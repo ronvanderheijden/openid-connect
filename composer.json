@@ -63,5 +63,10 @@
             "composer outdated --direct --no-ansi",
             "composer outdated --minor-only --strict --direct"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
