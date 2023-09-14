@@ -35,7 +35,11 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
             __DIR__ . '/config/openid.php' => $this->app->configPath('openid.php'),
         ], ['openid', 'openid-config']);
 
-        Passport\Passport::tokensCan(config('openid.passport.tokens_can'));
+        $openIdScopes = collect(config('openid.passport.tokens_can'));
+        $previousScopes = collect(Passport\Passport::scopes())->mapWithKeys(function (Passport\Scope $scope) {
+            return [$scope->id => $scope->description];
+        });
+        Passport\Passport::tokensCan($previousScopes->merge($openIdScopes)->toArray());
     }
 
     public function makeAuthorizationServer(): AuthorizationServer
