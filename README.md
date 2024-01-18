@@ -36,6 +36,9 @@ To enable OpenID Connect, follow these simple steps
 ```php
 $privateKeyPath = 'tmp/private.key';
 
+$currentRequestService = new CurrentRequestService();
+$currentRequestService->setRequest(ServerRequestFactory::fromGlobals());
+
 // create the response_type
 $responseType = new IdTokenResponse(
     new IdentityRepository(),
@@ -44,6 +47,8 @@ $responseType = new IdTokenResponse(
         new Sha256(),
         InMemory::file($privateKeyPath),
     ),
+    $currentRequestService,
+    $encryptionKey,
 );
 
 $server = new \League\OAuth2\Server\AuthorizationServer(
@@ -61,6 +66,17 @@ Now when calling the `/authorize` endpoint, provide the `openid` scope to get an
 Provide more scopes (e.g. `openid profile email`) to receive additional claims in the `id_token`.
 
 For a complete implementation, visit [the OAuth2 Server example](https://github.com/ronvanderheijden/openid-connect/tree/main/example).
+
+## Nonce support
+
+To prevent replay attacks, some clients can provide a "nonce" in the authorization request. If a client does so, the
+server MUST include back a `nonce` claim in the `id_token`.
+
+To enable this feature, when registering an AuthCodeGrant, you need to use the `\OpenIDConnect\Grant\AuthCodeGrant` 
+instead of `\League\OAuth2\Server\Grant\AuthCodeGrant`.
+
+> ![NOTE]
+> If you are using Laravel, the `AuthCodeGrant` is already registered for you by the service provider.
 
 ## Laravel Passport
 
@@ -141,7 +157,6 @@ discovery document by naming the route `openid.userinfo`.
 ```php
 Route::get('/oauth/userinfo', 'YourController@userinfo')->middleware('xxx')->name('openid.userinfo');
 ```
-
 
 ## Support
 Found a bug? Got a feature request?  [Create an issue](https://github.com/ronvanderheijden/openid-connect/issues).
