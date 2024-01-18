@@ -6,6 +6,7 @@ namespace OpenIDConnect;
 
 use DateInterval;
 use DateTimeImmutable;
+use Defuse\Crypto\Key;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Configuration;
 use League\OAuth2\Server\CryptTrait;
