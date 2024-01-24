@@ -8,7 +8,6 @@ use DateInterval;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
-use League\OAuth2\Server\ResponseTypes\RedirectResponse;
 use OpenIDConnect\Interfaces\CurrentRequestServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 
