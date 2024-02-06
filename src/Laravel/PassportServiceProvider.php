@@ -35,7 +35,10 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
             __DIR__ . '/config/openid.php' => $this->app->configPath('openid.php'),
         ], ['openid', 'openid-config']);
 
-        Passport\Passport::tokensCan(config('openid.passport.tokens_can'));
+        $tokens_can = config('openid.passport.tokens_can', null);
+        if ($tokens_can) {
+            Passport\Passport::tokensCan($tokens_can);
+        }
     }
 
     public function makeAuthorizationServer(): AuthorizationServer
