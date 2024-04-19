@@ -21,15 +21,18 @@ class IdTokenResponse extends BearerTokenResponse
     protected ClaimExtractor $claimExtractor;
 
     private Configuration $config;
+    private ?string $issuer;
 
     public function __construct(
         IdentityRepositoryInterface $identityRepository,
         ClaimExtractor $claimExtractor,
-        Configuration $config
+        Configuration $config,
+        string $issuer = null,
     ) {
         $this->identityRepository = $identityRepository;
         $this->claimExtractor = $claimExtractor;
         $this->config = $config;
+        $this->issuer = $issuer;
     }
 
     protected function getBuilder(
@@ -41,7 +44,7 @@ class IdTokenResponse extends BearerTokenResponse
         return $this->config
             ->builder()
             ->permittedFor($accessToken->getClient()->getIdentifier())
-            ->issuedBy('https://' . $_SERVER['HTTP_HOST'])
+            ->issuedBy($this->issuer ?? 'https://' . $_SERVER['HTTP_HOST'])
             ->issuedAt($dateTimeImmutableObject)
             ->expiresAt($dateTimeImmutableObject->add(new DateInterval('PT1H')))
             ->relatedTo($userEntity->getIdentifier());
