@@ -7,7 +7,7 @@ use Laravel\Passport\Passport;
 
 class JwksController
 {
-    public function jwks() {
+    public function __invoke() {
         $publicKey = $this->getPublicKey();
 
         // Source: https://www.tuxed.net/fkooman/blog/json_web_key_set.html

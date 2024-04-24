@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class DiscoveryController
 {
-    public function discovery(Request $request)
+    public function __invoke(Request $request)
     {
         $response = [
             'issuer' => url('/'),
