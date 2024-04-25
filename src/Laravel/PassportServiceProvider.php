@@ -35,25 +35,23 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
             __DIR__ . '/config/openid.php' => $this->app->configPath('openid.php'),
         ], ['openid', 'openid-config']);
 
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+
         $tokens_can = config('openid.passport.tokens_can', null);
         if ($tokens_can) {
             Passport\Passport::tokensCan($tokens_can);
         }
+
+        $this->registerClaimExtractor();
     }
 
     public function makeAuthorizationServer(): AuthorizationServer
     {
         $cryptKey = $this->makeCryptKey('private');
 
-        $customClaimSets = config('openid.custom_claim_sets');
-
-        $claimSets = array_map(function ($claimSet, $name) {
-            return new ClaimSet($name, $claimSet);
-        }, $customClaimSets, array_keys($customClaimSets));
-
         $responseType = new IdTokenResponse(
             app(config('openid.repositories.identity')),
-            new ClaimExtractor(...$claimSets),
+            app(ClaimExtractor::class),
             Configuration::forSymmetricSigner(
                 app(config('openid.signer')),
                 InMemory::file($cryptKey->getKeyPath()),
@@ -69,5 +67,17 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
             app(Encrypter::class)->getKey(),
             $responseType,
         );
+    }
+
+    public function registerClaimExtractor() {
+        $this->app->singleton(ClaimExtractor::class, function () {
+            $customClaimSets = config('openid.custom_claim_sets');
+
+            $claimSets = array_map(function ($claimSet, $name) {
+                return new ClaimSet($name, $claimSet);
+            }, $customClaimSets, array_keys($customClaimSets));
+
+            return new ClaimExtractor(...$claimSets);
+        });
     }
 }

@@ -125,6 +125,24 @@ In case you want to change the default scopes, add custom claim sets or change t
 php artisan vendor:publish --tag=openid
 ```
 
+### Discovery and JWKS
+
+The Laravel Passport integration also provides:
+
+- a discovery endpoint at `/.well-known/openid-configuration`.
+- a JWKS endpoint at `/oauth/jwks`.
+
+Those 2 endpoints are automatically added to the Laravel routes and can be disabled from the config (using
+the `openid.routes.discovery` and `openid.routes.jwks` keys).
+
+Laravel Passport does not provide a `userinfo` endpoint by default. If you provide one, you can add it to the 
+discovery document by naming the route `openid.userinfo`.
+
+```php
+Route::get('/oauth/userinfo', 'YourController@userinfo')->middleware('xxx')->name('openid.userinfo');
+```
+
+
 ## Support
 Found a bug? Got a feature request?  [Create an issue](https://github.com/ronvanderheijden/openid-connect/issues).
 
