@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 if (config('openid.routes.discovery', true)) {
     Route::get('/oauth/jwks', \OpenIDConnect\Laravel\JwksController::class)->name('openid.jwks');
 }
