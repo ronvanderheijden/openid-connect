@@ -29,7 +29,7 @@ chmod 644 tmp/public.key
 ```
 
 ## Example
-I recommand to [read this](https://oauth2.thephpleague.com/authorization-server/auth-code-grant/) first.
+I recommend to [read this](https://oauth2.thephpleague.com/authorization-server/auth-code-grant/) first.
 
 To enable OpenID Connect, follow these simple steps
 
