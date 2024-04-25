@@ -7,11 +7,12 @@ namespace OpenIDConnect\Tests\Feature;
 use OpenIDConnect\ClaimExtractor;
 use OpenIDConnect\Claims\ClaimSet;
 use OpenIDConnect\Exceptions\ProtectedScopeException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ClaimExtractorTest extends TestCase
 {
-    public function protected_claim_sets()
+    public static function protected_claim_sets()
     {
         yield 'profile' => ['name' => 'profile'];
         yield 'email' => ['name' => 'email'];
@@ -19,18 +20,14 @@ class ClaimExtractorTest extends TestCase
         yield 'phone' => ['name' => 'phone'];
     }
 
-    /**
-     * @dataProvider protected_claim_sets
-     */
+    #[DataProvider('protected_claim_sets')]
     public function test_default_claim_sets_exist(string $name)
     {
         $extractor = new ClaimExtractor();
         $this->assertTrue($extractor->hasClaimSet($name));
     }
 
-    /**
-     * @dataProvider protected_claim_sets
-     */
+    #[DataProvider('protected_claim_sets')]
     public function test_cannot_override_protected_scope(string $name)
     {
         $this->expectException(ProtectedScopeException::class);
@@ -38,9 +35,7 @@ class ClaimExtractorTest extends TestCase
         new ClaimExtractor(new ClaimSet($name, ['custom_claim']));
     }
 
-    /**
-     * @dataProvider protected_claim_sets
-     */
+    #[DataProvider('protected_claim_sets')]
     public function test_can_get_scope_by_name(string $name)
     {
         $claimset = (new ClaimExtractor())->getClaimSet($name);
@@ -73,8 +68,8 @@ class ClaimExtractorTest extends TestCase
     public function test_can_safely_extract_known_claim_set()
     {
         $extractor = new ClaimExtractor();
-        $result = $extractor->extract(['profile'], ['name' => 'John Snow']);
-        $this->assertEquals($result['name'], 'John Snow');
+        $result = $extractor->extract(['profile'], ['name' => 'Jon Snow']);
+        $this->assertEquals($result['name'], 'Jon Snow');
     }
 
     public function test_can_safely_extract_invalid_claim_set()

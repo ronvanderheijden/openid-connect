@@ -25,7 +25,7 @@ trait WithDefaultAsserts
     {
         $this->assertSame('Bearer', $json->token_type);
         $this->assertSame(3600, $json->expires_in);
-        $this->assertObjectHasAttribute('access_token', $json);
-        $this->assertObjectHasAttribute('refresh_token', $json);
+        $this->assertObjectHasProperty('access_token', $json);
+        $this->assertObjectHasProperty('refresh_token', $json);
     }
 }

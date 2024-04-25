@@ -84,9 +84,6 @@ class TokensTest extends TestCase
         );
     }
 
-    /**
-     * @group dev
-     */
     public function test_id_token_with_custom_scope_returns_custom_claim()
     {
         $scopes = ['openid', 'custom'];
