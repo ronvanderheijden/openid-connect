@@ -59,5 +59,5 @@ return [
          * - /oauth/jwks
          */
         'jwks' => true,
-    ]
+    ],
 ];
