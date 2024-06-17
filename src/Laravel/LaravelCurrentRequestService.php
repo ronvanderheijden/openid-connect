@@ -1,4 +1,6 @@
-<?php
+<?php 
+
+declare(strict_types=1);
 
 namespace OpenIDConnect\Laravel;
 
@@ -9,7 +11,6 @@ use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 
 class LaravelCurrentRequestService implements CurrentRequestServiceInterface
 {
-
     public function getRequest(): ServerRequestInterface
     {
         return (new PsrHttpFactory(
