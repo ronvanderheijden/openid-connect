@@ -1,6 +1,10 @@
 name: PHP 8.2
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   php80:
