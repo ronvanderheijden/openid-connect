@@ -32,7 +32,7 @@ class DiscoveryController
             'id_token_signing_alg_values_supported' => [
                 'RS256',
             ],
-            'scopes_supported' => config('openid.passport.tokens_can'),
+            'scopes_supported' => array_keys(config('openid.passport.tokens_can')),
             'token_endpoint_auth_methods_supported' => [
                 'client_secret_basic',
                 'client_secret_post',
