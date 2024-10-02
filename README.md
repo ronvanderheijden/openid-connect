@@ -78,6 +78,18 @@ instead of `\League\OAuth2\Server\Grant\AuthCodeGrant`.
 > ![NOTE]
 > If you are using Laravel, the `AuthCodeGrant` is already registered for you by the service provider.
 
+If you want to use nonce support with Laravel you have to publish the views 
+
+```
+php artisan vendor:publish --tag=passport-views
+```
+
+Open the `authorize.blade.php` and add the nonce to the approve request
+
+```
+<form method="post" action="{{ route('passport.authorizations.approve', ['nonce' => request('nonce')]) }}">
+```
+
 ## Laravel Passport
 
 You can use this package with Laravel Passport in 2 simple steps.
