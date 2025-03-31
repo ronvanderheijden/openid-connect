@@ -43,6 +43,10 @@ class DiscoveryController
             $response['userinfo_endpoint'] = route('openid.userinfo');
         }
 
+        if (Route::has('openid.end_session_endpoint')) {
+            $response['end_session_endpoint'] = route('openid.end_session_endpoint');
+        }
+
         return response()->json($response, 200, [], JSON_PRETTY_PRINT);
     }
 }
