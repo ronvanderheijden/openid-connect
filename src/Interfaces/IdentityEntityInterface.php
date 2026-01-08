@@ -9,5 +9,4 @@ use OpenIDConnect\Claims\Claimable;
 
 interface IdentityEntityInterface extends Claimable, OAuth2UserEntityInterface
 {
-    public function getIdentifier();
 }

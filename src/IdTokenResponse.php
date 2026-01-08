@@ -34,7 +34,7 @@ class IdTokenResponse extends BearerTokenResponse
         IdentityRepositoryInterface $identityRepository,
         ClaimExtractor $claimExtractor,
         Configuration $config,
-        CurrentRequestServiceInterface $currentRequestService = null,
+        ?CurrentRequestServiceInterface $currentRequestService = null,
         $encryptionKey = null,
     ) {
         $this->identityRepository = $identityRepository;
