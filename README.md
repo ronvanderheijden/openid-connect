@@ -8,7 +8,7 @@ OpenID Connect support to the PHP League's OAuth2 Server.
 
 * Requires PHP version `^7.4|^8.0`.
 * [lcobucci/jwt](https://github.com/lcobucci/jwt) version `^4.0`.
-* [league/oauth2-server](https://github.com/thephpleague/oauth2-server) `^8.2`.
+* [league/oauth2-server](https://github.com/thephpleague/oauth2-server) `^8.5.3 || ^9.2`.
 
 ## Installation
 ```sh
