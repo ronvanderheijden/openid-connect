@@ -19,7 +19,7 @@ use OpenIDConnect\IdTokenResponse;
 
 class PassportServiceProvider extends Passport\PassportServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         parent::register();
 
