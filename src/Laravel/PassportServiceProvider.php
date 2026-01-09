@@ -29,7 +29,7 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
         );
     }
 
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
