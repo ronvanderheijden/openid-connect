@@ -34,7 +34,7 @@ class IdTokenResponse extends BearerTokenResponse
         IdentityRepositoryInterface $identityRepository,
         ClaimExtractor $claimExtractor,
         Configuration $config,
-        CurrentRequestServiceInterface $currentRequestService = null,
+        ?CurrentRequestServiceInterface $currentRequestService = null,
         $encryptionKey = null,
     ) {
         $this->identityRepository = $identityRepository;
@@ -84,7 +84,7 @@ class IdTokenResponse extends BearerTokenResponse
         );
 
         foreach ($claims as $claimName => $claimValue) {
-            $builder = $builder->withClaim($claimName, $claimValue);
+            $builder = $builder->withClaim((string) $claimName, $claimValue);
         }
 
         if ($this->currentRequestService) {
