@@ -26,59 +26,59 @@ use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UseFromSameNamespaceSniff;
 use SlevomatCodingStandard\Sniffs\PHP\OptimizedFunctionsWithoutUnpackingSniff;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(FileHeaderSniff::class);
-    $services->set(TraitUseDeclarationSniff::class);
-    $services->set(DisallowLongArraySyntaxSniff::class);
-    $services->set(DeclareStrictTypesFixer::class);
-    $services->set(UnusedUsesSniff::class);
-    $services->set(UseFromSameNamespaceSniff::class);
-    $services->set(OptimizedFunctionsWithoutUnpackingSniff::class);
-    $services->set(DeadCatchSniff::class);
-    $services->set(RequireTrailingCommaInCallSniff::class);
-    $services->set(RequireTrailingCommaInDeclarationSniff::class);
-    $services->set(RequireConstructorPropertyPromotionSniff::class);
-    $services->set(AlphabeticallySortedUsesSniff::class);
-    $services->set(ClassConstantVisibilitySniff::class);
-    $services->set(TrailingArrayCommaSniff::class);
-    $services->set(ArrayIndentSniff::class);
-    $services->set(ClassMemberSpacingSniff::class);
-    $services->set(CastSpacingSniff::class);
-    $services->set(SpaceAfterCastSniff::class);
-    $services->set(LineLengthSniff::class)
-        ->property('absoluteLineLimit', 120);
-    $services->set(FunctionSpacingSniff::class)
-        ->property('spacing', 1)
-        ->property('spacingBeforeFirst', 0)
-        ->property('spacingAfterLast', 0);
-    $services->set(PropertySpacingSniff::class)
-        ->property('minLinesCountBeforeWithComment', 1)
-        ->property('maxLinesCountBeforeWithComment', 1)
-        ->property('minLinesCountBeforeWithoutComment', 0)
-        ->property('maxLinesCountBeforeWithoutComment', 1);
-    $services->set(ConstantSpacingSniff::class)
-        ->property('minLinesCountBeforeWithComment', 1)
-        ->property('maxLinesCountBeforeWithComment', 1)
-        ->property('minLinesCountBeforeWithoutComment', 0)
-        ->property('maxLinesCountBeforeWithoutComment', 1);
-    $services->set(EmptyLinesAroundClassBracesSniff::class)
-        ->property('linesCountAfterOpeningBrace', 0)
-        ->property('linesCountBeforeClosingBrace', 0);
-    $services->set(BinaryOperatorSpacesFixer::class)
-        ->call('configure', [
-            ['default' => BinaryOperatorSpacesFixer::SINGLE_SPACE],
-        ]);
-
-    $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::PATHS, [__DIR__]);
-    $parameters->set(Option::SETS, [
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->disableParallel();
+    $ecsConfig->paths([__DIR__]);
+    $ecsConfig->sets([
         SetList::PSR_12,
+    ]);
+
+    $ecsConfig->rule(FileHeaderSniff::class);
+    $ecsConfig->rule(TraitUseDeclarationSniff::class);
+    $ecsConfig->rule(DisallowLongArraySyntaxSniff::class);
+    $ecsConfig->rule(DeclareStrictTypesFixer::class);
+    $ecsConfig->rule(UnusedUsesSniff::class);
+    $ecsConfig->rule(UseFromSameNamespaceSniff::class);
+    $ecsConfig->rule(OptimizedFunctionsWithoutUnpackingSniff::class);
+    $ecsConfig->rule(DeadCatchSniff::class);
+    $ecsConfig->rule(RequireTrailingCommaInCallSniff::class);
+    $ecsConfig->rule(RequireTrailingCommaInDeclarationSniff::class);
+    $ecsConfig->rule(RequireConstructorPropertyPromotionSniff::class);
+    $ecsConfig->rule(AlphabeticallySortedUsesSniff::class);
+    $ecsConfig->rule(ClassConstantVisibilitySniff::class);
+    $ecsConfig->rule(TrailingArrayCommaSniff::class);
+    $ecsConfig->rule(ArrayIndentSniff::class);
+    $ecsConfig->rule(ClassMemberSpacingSniff::class);
+    $ecsConfig->rule(CastSpacingSniff::class);
+    $ecsConfig->rule(SpaceAfterCastSniff::class);
+    $ecsConfig->ruleWithConfiguration(LineLengthSniff::class, [
+        'absoluteLineLimit' => 120,
+    ]);
+    $ecsConfig->ruleWithConfiguration(FunctionSpacingSniff::class, [
+        'spacing' => 1,
+        'spacingBeforeFirst' => 0,
+        'spacingAfterLast' => 0,
+    ]);
+    $ecsConfig->ruleWithConfiguration(PropertySpacingSniff::class, [
+        'minLinesCountBeforeWithComment' => 1,
+        'maxLinesCountBeforeWithComment' => 1,
+        'minLinesCountBeforeWithoutComment' => 0,
+        'maxLinesCountBeforeWithoutComment' => 1,
+    ]);
+    $ecsConfig->ruleWithConfiguration(ConstantSpacingSniff::class, [
+        'minLinesCountBeforeWithComment' => 1,
+        'maxLinesCountBeforeWithComment' => 1,
+        'minLinesCountBeforeWithoutComment' => 0,
+        'maxLinesCountBeforeWithoutComment' => 1,
+    ]);
+    $ecsConfig->ruleWithConfiguration(EmptyLinesAroundClassBracesSniff::class, [
+        'linesCountAfterOpeningBrace' => 0,
+        'linesCountBeforeClosingBrace' => 0,
+    ]);
+    $ecsConfig->ruleWithConfiguration(BinaryOperatorSpacesFixer::class, [
+        'default' => BinaryOperatorSpacesFixer::SINGLE_SPACE,
     ]);
 };

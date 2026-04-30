@@ -20,6 +20,7 @@ use OpenIDConnect\Tests\Factories\KeyFactory;
 use OpenIDConnect\Tests\Factories\Psr7ResponseFactory;
 use OpenIDConnect\Tests\Factories\RefreshTokenFactory;
 use OpenIDConnect\Tests\Feature\Traits\WithDefaultAsserts;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class TokensTest extends TestCase
@@ -84,9 +85,7 @@ class TokensTest extends TestCase
         );
     }
 
-    /**
-     * @group dev
-     */
+    #[Group('dev')]
     public function test_id_token_with_custom_scope_returns_custom_claim()
     {
         $scopes = ['openid', 'custom'];

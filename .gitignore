@@ -1,5 +1,8 @@
 vendor/
+.phpunit.cache/
 .phpunit.result.cache
 composer.lock
 tmp/
 .phplint-cache
+.phplint.cache/
+.idea/

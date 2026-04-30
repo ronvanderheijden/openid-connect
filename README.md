@@ -2,13 +2,20 @@
 
 OpenID Connect support to the PHP League's OAuth2 Server.
 
-**Compatible with [Laravel Passport](https://laravel.com/docs/8.x/passport)!**
+**Compatible with [Laravel Passport](https://laravel.com/docs/13.x/passport)!**
 
 ## Requirements
 
-* Requires PHP version `^7.4|^8.0`.
-* [lcobucci/jwt](https://github.com/lcobucci/jwt) version `^4.0`.
-* [league/oauth2-server](https://github.com/thephpleague/oauth2-server) `^8.2`.
+* Requires PHP version `^8.3`.
+* [lcobucci/jwt](https://github.com/lcobucci/jwt) version `^5.6`.
+* [league/oauth2-server](https://github.com/thephpleague/oauth2-server) `^9.2`.
+* Laravel Passport integration targets Passport `^13.0` and Laravel `^13.0`.
+
+## Upgrade notes
+
+This release drops support for PHP 7.4, 8.0, 8.1 and 8.2 so the Laravel Passport integration can support Laravel 13. Consumers using the Laravel integration should upgrade to Laravel 13 and Passport 13, then review Passport's own 13.x upgrade guide for application-level changes such as hashed client secrets, UUID client IDs, the `OAuthenticatable` user-model contract and the removed personal access client table.
+
+The package now targets `league/oauth2-server` 9.x. Custom repository implementations must use the typed method signatures required by OAuth2 Server 9, and access token entities must implement `toString()`.
 
 ## Installation
 ```sh
@@ -117,7 +124,7 @@ class IdentityEntity implements IdentityEntityInterface
      * The identity repository creates this entity and provides the user id
      * @param mixed $identifier
      */
-    public function setIdentifier($identifier): void
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
         $this->user = User::findOrFail($identifier);

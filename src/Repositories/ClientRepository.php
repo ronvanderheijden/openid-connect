@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace OpenIDConnect\Repositories;
 
+use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use OpenIDConnect\Entities\ClientEntity;
 
 class ClientRepository implements ClientRepositoryInterface
 {
-    public function getClientEntity($clientIdentifier)
+    public function getClientEntity(string $clientIdentifier): ClientEntityInterface
     {
         $client = new ClientEntity();
         $client->setIdentifier('1');
@@ -18,7 +19,7 @@ class ClientRepository implements ClientRepositoryInterface
         return $client;
     }
 
-    public function validateClient($clientIdentifier, $clientSecret, $grantType)
+    public function validateClient(string $clientIdentifier, ?string $clientSecret, ?string $grantType): bool
     {
         return true;
     }

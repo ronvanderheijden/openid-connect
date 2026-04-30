@@ -25,6 +25,6 @@ class OauthTest extends TestCase
         $json = json_decode($response->getBody()->getContents());
         $this->defaultTokenAsserts($json);
 
-        $this->assertObjectNotHasAttribute('id_token', $json);
+        $this->assertObjectNotHasProperty('id_token', $json);
     }
 }
